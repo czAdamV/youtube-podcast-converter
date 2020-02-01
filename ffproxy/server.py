@@ -7,13 +7,17 @@ import mimetypes
 import requests
 
 
-root_blueprint = Blueprint('root', __name__)
+ffproxy_blueprint = Blueprint('ffproxy', __name__)
 
 
 def create_app(conf=None):
     app = Flask(__name__)
-    app.register_blueprint(root_blueprint)
-    app.config.from_envvar('FFPROXY_CONFIG')
+    app.register_blueprint(ffproxy_blueprint)
+
+    if conf:
+        app.config.from_object(conf)
+    else:
+        app.config.from_envvar('FFPROXY_CONFIG')
 
     # Turn ALLOWED_COMBINATIONS into a set of tuples and merge a cartesian
     # product of ALLOWED_FORMATS and ALLOWED_BITRATES into it.
@@ -42,7 +46,7 @@ def create_app(conf=None):
     return app
 
 
-@root_blueprint.route('/download/<video_id>')
+@ffproxy_blueprint.route('/download/<video_id>')
 def proxy(video_id):
     default_combination = current_app.config['DEFAULT_COMBINATION']
     allowed_combinations = current_app.config['ALLOWED_COMBINATIONS']
@@ -87,7 +91,7 @@ def proxy(video_id):
     )
 
 
-@root_blueprint.route('/', methods=['GET'])
+@ffproxy_blueprint.route('/', methods=['GET'])
 def root():
     return Response(
         json.dumps({
