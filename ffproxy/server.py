@@ -43,6 +43,9 @@ def create_app(conf=None):
             'Default combination is not in allowed combinations set.'
         )
 
+    if 'FORMAT_ENCODER_TRANSLATE' not in app.config:
+        app.config['FORMAT_ENCODER_TRANSLATE'] = dict()
+
     return app
 
 
