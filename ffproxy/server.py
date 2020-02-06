@@ -79,7 +79,13 @@ def proxy(video_id):
     except requests.exceptions.RequestException as e:
         return f'Gateway error', 502
 
-    if r.status_code != 200:
+    if r.status_code == 400:
+        return r.text, 400
+
+    elif r.status_code == 404:
+        return 'Video not found', 404
+
+    elif r.status_code != 200:
         return 'Gateway error, upstream responded with ' \
                'unexpected status code', 502
 
