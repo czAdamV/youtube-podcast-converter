@@ -12,7 +12,11 @@ ytfeed_blueprint = Blueprint('ytfeed', __name__)
 def create_app(conf=None):
     app = Flask(__name__)
     app.register_blueprint(ytfeed_blueprint)
-    app.config.from_envvar('YTFEED_CONFIG')
+
+    if conf:
+        app.config.from_object(conf)
+    else:
+        app.config.from_envvar('YTFEED_CONFIG')
 
     try:
         r = requests.get(app.config['BACKEND'])
