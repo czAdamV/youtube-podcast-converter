@@ -40,7 +40,7 @@ def download(video_id):
         return 'Video is a live stream', 400
 
     except pytube.exceptions.PytubeError as e:
-        return f'Couldn\' process request: {e}', 500
+        return f'Couldn\'t process request: {e}', 500
 
     except urllib.error.URLError as e:
         return f'Bad gateway: {e}', 502
