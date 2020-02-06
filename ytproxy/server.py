@@ -1,20 +1,20 @@
-from flask import Flask, Blueprint, send_file
+from flask import Flask, Blueprint, Response, send_file
 import io
 import json
 import pytube
 import urllib
 
-root_blueprint = Blueprint('root', __name__)
+ytproxy_blueprint = Blueprint('ytproxy', __name__)
 
 
-def create_app(conf=None):
+def create_app():
     app = Flask(__name__)
-    app.register_blueprint(root_blueprint)
+    app.register_blueprint(ytproxy_blueprint)
 
     return app
 
 
-@root_blueprint.route('/download/<video_id>')
+@ytproxy_blueprint.route('/download/<video_id>')
 def download(video_id):
     try:
         stream = (
@@ -44,4 +44,12 @@ def download(video_id):
     # developers if it really is a bug.
     bytestream.seek(0)
 
-    return send_file(bytestream, mimetype=stream.mime_type,)
+    return send_file(bytestream, mimetype=stream.mime_type)
+
+
+@ytproxy_blueprint.route('/')
+def root():
+    return Response(
+        json.dumps({'allowed_formats': []}),
+        mimetype='application/json'
+    )
