@@ -1,4 +1,4 @@
-from flask import Flask, Blueprint, Response, send_file
+from flask import Flask, Blueprint, Response, current_app, send_file
 import io
 import json
 import pytube
@@ -7,18 +7,24 @@ import urllib
 ytproxy_blueprint = Blueprint('ytproxy', __name__)
 
 
-def create_app():
+def create_app(pytube_module=None):
     app = Flask(__name__)
     app.register_blueprint(ytproxy_blueprint)
+
+    app.config['PYTUBE'] = pytube_module or pytube
 
     return app
 
 
 @ytproxy_blueprint.route('/download/<video_id>')
 def download(video_id):
+    pytube_module = current_app.config['PYTUBE']
+    youtube = pytube_module.YouTube
+    watch_url = pytube_module.extract.watch_url
+
     try:
         stream = (
-            pytube.YouTube(pytube.extract.watch_url(video_id))
+            youtube(watch_url(video_id))
             .streams
             .get_audio_only()
         )
