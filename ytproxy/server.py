@@ -28,7 +28,7 @@ def download(video_id):
         return 'Invalid video_id', 400
 
     except pytube.exceptions.VideoUnavailable as e:
-        return 'Video unavailable', 404
+        return 'Video does not exist', 404
 
     except pytube.exceptions.LiveStreamError as e:
         return 'Video is a live stream', 400
