@@ -1,0 +1,35 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.22.0
+    method: GET
+    uri: http://example.com/download/12345678912
+  response:
+    body:
+      string: !!binary |
+        VGhpcyBpcyBub3QgYSB2YWxpZCB2aWRlbyBmaWxlLgo=
+    headers:
+      Cache-Control:
+      - public, max-age=43200
+      Content-Length:
+      - '105073'
+      Content-Type:
+      - audio/mp4
+      Date:
+      - Thu, 06 Feb 2020 01:08:51 GMT
+      Expires:
+      - Thu, 06 Feb 2020 13:08:51 GMT
+      Server:
+      - Werkzeug/0.16.1 Python/3.8.1
+    status:
+      code: 200
+      message: OK
+version: 1

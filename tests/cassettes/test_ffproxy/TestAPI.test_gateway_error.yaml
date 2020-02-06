@@ -1,0 +1,30 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.22.0
+    method: GET
+    uri: http://example.com/download/12345678912
+  response:
+    body:
+      string: 'Bad gateway: <urlopen error [Errno -2] Name or service not known>'
+    headers:
+      Content-Length:
+      - '65'
+      Content-Type:
+      - text/html; charset=utf-8
+      Date:
+      - Thu, 06 Feb 2020 01:05:29 GMT
+      Server:
+      - Werkzeug/0.16.1 Python/3.8.1
+    status:
+      code: 502
+      message: BAD GATEWAY
+version: 1

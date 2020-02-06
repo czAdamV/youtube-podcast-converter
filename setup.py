@@ -18,5 +18,12 @@ setup(
         'flask',
         'pytube3',
     ],
+    extras_require={
+        'dev': [
+            'pytest',
+            'pytest-recording',
+            'vcrpy',
+        ],
+    },
     zip_safe=False,
 )
