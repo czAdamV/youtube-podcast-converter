@@ -18,18 +18,29 @@ def create_app(conf=None):
     else:
         app.config.from_envvar('YTFEED_CONFIG')
 
+    if 'BACKEND' not in app.config:
+        raise RuntimeError('BACKEND variable not configured')
+
     try:
         r = requests.get(app.config['BACKEND'])
 
         if r.status_code != 200:
             raise RuntimeError('Backend returned unexpected status code.')
 
+        try:
+            data = r.json()
+        except ValueError as e:
+            raise ValueError('Invalid json in backend response') from e
+
         app.config['ALLOWED_FORMATS'] = set(
             tuple(item) for item in r.json()['allowed_formats']
         )
         app.config['FORMAT_BACKEND'] = len(app.config['ALLOWED_FORMATS']) != 0
-        app.config['DEFAULT_FORMAT'] = \
-            r.json()['default_format'] if app.config['FORMAT_BACKEND'] else ''
+
+        if app.config['FORMAT_BACKEND']:
+            app.config['DEFAULT_FORMAT'] = tuple(r.json()['default_format'])
+        else:
+            app.config['DEFAULT_FORMAT'] = ''
     except Exception as e:
         raise RuntimeError(
             f'Error when communicatin with backend server. {e}'
@@ -94,7 +105,6 @@ def playlist(playlist_id, type):
     return Response(
         fg.rss_str() if type == 'rss' else fg.atom_str(),
         mimetype=f'application/{type}+xml')
-    return fg.rss_str()
 
 
 @ytfeed_blueprint.route('/')
