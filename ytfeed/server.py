@@ -9,7 +9,7 @@ import requests
 ytfeed_blueprint = Blueprint('ytfeed', __name__)
 
 
-def create_app(conf=None):
+def create_app(conf=None, youtube_backend=None):
     app = Flask(__name__)
     app.register_blueprint(ytfeed_blueprint)
 
@@ -46,8 +46,11 @@ def create_app(conf=None):
             f'Error when communicatin with backend server. {e}'
         ) from e
 
+    if not youtube_backend:
+        youtube_backend = youtube_api
+
     if 'DEVELOPER_KEY' in app.config:
-        app.config['SESSION'] = youtube_api(app.config['DEVELOPER_KEY'])
+        app.config['SESSION'] = youtube_backend(app.config['DEVELOPER_KEY'])
 
     else:
         raise NotImplementedError(
