@@ -10,6 +10,21 @@ ytfeed_blueprint = Blueprint('ytfeed', __name__)
 
 
 def create_app(conf=None, youtube_backend=None):
+    """Create a configured Flask application
+
+    :param config: configuration object for flask.Config.from_object for
+                   testing
+    :type  config: object, optional
+    :param youtube_backend: alternative youtube backend to use for testing
+    :type  youtube_backend: object, optional
+
+    :return: Flask application
+    :rtype:  class:`flask.app.Flask`
+
+    :raises RuntimeError: Indicates error during initialization.
+    :raises NotImplementedError: Currently raised when trying to initialize
+            the app without an DEVELOPER_KEY configuration variable.
+    """
     app = Flask(__name__)
     app.register_blueprint(ytfeed_blueprint)
 
@@ -63,6 +78,13 @@ def create_app(conf=None, youtube_backend=None):
 
 @ytfeed_blueprint.route('/<playlist_id>.<any(rss, atom):type>')
 def playlist(playlist_id, type):
+    """Podcast feed endpoint
+
+    :param playlist_id: playlist id
+    :type  playlist_id: str
+    :param type: feed type
+    :type  type: object, optional
+    """
     session = current_app.config['SESSION']
     try:
         info = session.playlist_info(playlist_id)
@@ -112,6 +134,8 @@ def playlist(playlist_id, type):
 
 @ytfeed_blueprint.route('/')
 def root():
+    """Root web entry point, returns information about supported formats.
+    """
     return Response(
         json.dumps({
             'allowed_formats': list(

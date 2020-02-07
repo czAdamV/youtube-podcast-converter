@@ -11,6 +11,17 @@ ffproxy_blueprint = Blueprint('ffproxy', __name__)
 
 
 def create_app(conf=None):
+    """Create a configured Flask application
+
+    :param conf: configuration object for flask.Config.from_object for
+                   testing
+    :type  conf: object, optional
+
+    :return: Flask application
+    :rtype:  class:`flask.app.Flask`
+
+    :raises RuntimeError: Indicates error during initialization.
+    """
     app = Flask(__name__)
     app.register_blueprint(ffproxy_blueprint)
 
@@ -51,6 +62,11 @@ def create_app(conf=None):
 
 @ffproxy_blueprint.route('/download/<video_id>')
 def proxy(video_id):
+    """Audio download endpoint
+
+    :param video_id: video id
+    :type  video_id: str
+    """
     default_combination = current_app.config['DEFAULT_COMBINATION']
     allowed_combinations = current_app.config['ALLOWED_COMBINATIONS']
     encoder_translate = current_app.config['FORMAT_ENCODER_TRANSLATE']
@@ -102,6 +118,8 @@ def proxy(video_id):
 
 @ffproxy_blueprint.route('/', methods=['GET'])
 def root():
+    """Root web entry point, returns information about supported formats.
+    """
     return Response(
         json.dumps({
             'allowed_formats': list(

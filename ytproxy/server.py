@@ -8,6 +8,14 @@ ytproxy_blueprint = Blueprint('ytproxy', __name__)
 
 
 def create_app(pytube_module=None):
+    """Create a configured Flask application
+
+    :param pytube_module: Alternative pytube module used for testing
+    :type  pytube_module: object, optional
+
+    :return: Flask application
+    :rtype:  class:`flask.app.Flask`
+    """
     app = Flask(__name__)
     app.register_blueprint(ytproxy_blueprint)
 
@@ -18,6 +26,11 @@ def create_app(pytube_module=None):
 
 @ytproxy_blueprint.route('/download/<video_id>')
 def download(video_id):
+    """Audio download endpoint
+
+    :param video_id: video id
+    :type  video_id: str
+    """
     pytube_module = current_app.config['PYTUBE']
     youtube = pytube_module.YouTube
     watch_url = pytube_module.extract.watch_url
@@ -55,6 +68,8 @@ def download(video_id):
 
 @ytproxy_blueprint.route('/')
 def root():
+    """Root web entry point, returns information about supported formats.
+    """
     return Response(
         json.dumps({'allowed_formats': []}),
         mimetype='application/json'
