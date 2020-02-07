@@ -22,6 +22,7 @@ setup(
         'dev': [
             'pytest',
             'pytest-recording',
+            'sphinx',
             'vcrpy',
         ],
     },
