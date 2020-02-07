@@ -11,7 +11,7 @@ class youtube_api:
         self.session = googleapiclient.discovery.build(
             'youtube', 'v3', developerKey=api_key)
 
-    def get_playlist_page(self, playlist, page_token=None, max_results=None):
+    def __get_playlist_page(self, playlist, page_token=None, max_results=None):
         return self.session.playlistItems().list(
             part="contentDetails,snippet",
             maxResults=max_results,
@@ -19,10 +19,10 @@ class youtube_api:
             playlistId=playlist
         ).execute()
 
-    def playlist_pages(self, playlist):
+    def __playlist_pages(self, playlist):
         page = None
         while True:
-            response = self.get_playlist_page(playlist, page, 50)
+            response = self.__get_playlist_page(playlist, page, 50)
             page = response.get('nextPageToken')
             yield response
 
@@ -50,7 +50,7 @@ class youtube_api:
         }
 
     def playlist_videos(self, playlist):
-        for page in self.playlist_pages(playlist):
+        for page in self.__playlist_pages(playlist):
             for item in page['items']:
                 yield {
                     'video_id': item['contentDetails']['videoId'],
