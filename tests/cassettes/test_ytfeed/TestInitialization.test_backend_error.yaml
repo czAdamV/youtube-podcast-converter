@@ -1,0 +1,39 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.22.0
+    method: GET
+    uri: http://example.com/
+  response:
+    body:
+      string: '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+        <title>404 Not Found</title>
+
+        <h1>Not Found</h1>
+
+        <p>The requested URL was not found on the server. If you entered the URL manually
+        please check your spelling and try again.</p>
+
+        '
+    headers:
+      Content-Length:
+      - '232'
+      Content-Type:
+      - text/html
+      Date:
+      - Thu, 06 Feb 2020 21:37:40 GMT
+      Server:
+      - Werkzeug/0.16.1 Python/3.8.1
+    status:
+      code: 404
+      message: NOT FOUND
+version: 1

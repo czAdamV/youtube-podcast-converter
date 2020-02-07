@@ -1,0 +1,31 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.22.0
+    method: GET
+    uri: http://example.com/
+  response:
+    body:
+      string: '{"allowed_formats": [["aac", 1], ["mp3", 1], ["mp3", 3], ["mp3", 2],
+        ["aac", 2]], "default_format": ["mp3", 3]}'
+    headers:
+      Content-Length:
+      - '111'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 06 Feb 2020 22:43:23 GMT
+      Server:
+      - Werkzeug/0.16.1 Python/3.8.1
+    status:
+      code: 200
+      message: OK
+version: 1

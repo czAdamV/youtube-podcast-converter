@@ -1,0 +1,30 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.22.0
+    method: GET
+    uri: http://example.com/
+  response:
+    body:
+      string: '{"allowed_formats": []}'
+    headers:
+      Content-Length:
+      - '23'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 06 Feb 2020 21:46:20 GMT
+      Server:
+      - Werkzeug/0.16.1 Python/3.8.1
+    status:
+      code: 200
+      message: OK
+version: 1
