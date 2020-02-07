@@ -1,5 +1,5 @@
 from .helpers import transcode
-from flask import Flask, Blueprint, Response, request, current_app, send_file
+from flask import Flask, Blueprint, Response, request, current_app
 from itertools import chain, product
 import io
 import json
@@ -110,7 +110,7 @@ def proxy(video_id):
     except RuntimeError as e:
         return f'Transcode error: {e}', 500
 
-    return send_file(
+    return Response(
         io.BytesIO(output),
         mimetype=mimetypes.guess_type(f'a.{format}')[0]
     )
