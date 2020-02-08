@@ -18,7 +18,15 @@ Intruduction
 ############
 
 Ytfeed is a minimalistic service generating RSS and ATOM podcasts from YouTube
-playlists.
+playlists. Try it out in Docker!
+
+.. code-block:: Text
+
+   $ docker build . -t ytfeed
+   $ docker run -p 80:80 ytfeed
+   $ vlc http://localhost/PLFsQleAWXsj_4yDeebiIADdH5FMayBiJo.rss
+   $ # atom feed on http://localhost/PLFsQleAWXsj_4yDeebiIADdH5FMayBiJo.atom
+
 
 Indices and tables
 ==================
