@@ -90,7 +90,7 @@ def proxy(video_id):
 
     try:
         r = requests.get(
-            current_app.config['PROXY_PASS'].format(video_id=video_id)
+            current_app.config['RAW_BACKEND'].format(video_id=video_id)
         )
     except requests.exceptions.RequestException as e:
         return f'Gateway error', 502

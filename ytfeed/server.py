@@ -33,11 +33,11 @@ def create_app(conf=None, youtube_backend=None):
     else:
         app.config.from_envvar('YTFEED_CONFIG')
 
-    if 'BACKEND' not in app.config:
-        raise RuntimeError('BACKEND variable not configured')
+    if 'FEED_BACKEND' not in app.config:
+        raise RuntimeError('FEED_BACKEND variable not configured')
 
     try:
-        r = requests.get(app.config['BACKEND'])
+        r = requests.get(app.config['FEED_BACKEND'])
 
         if r.status_code != 200:
             raise RuntimeError('Backend returned unexpected status code.')
@@ -122,7 +122,7 @@ def playlist(playlist_id, type):
         fe.link({'href': item_link, 'rel': 'alternate'})
         fe.published(video['published_at'])
         fe.enclosure(
-            f'{current_app.config["BACKEND"]}download/{video_id}',
+            f'{current_app.config["FEED_BACKEND"]}download/{video_id}',
             0,
             mime_type
         )

@@ -6,7 +6,7 @@ import pytest
 class SampleConf:
     def __init__(self):
         self.DEVELOPER_KEY = "foo"
-        self.BACKEND = 'http://example.com/'
+        self.FEED_BACKEND = 'http://example.com/'
 
 
 class YouTubeMock:
@@ -52,12 +52,12 @@ def app():
 class TestInitialization:
     def test_no_backend(self):
         conf = SampleConf()
-        del conf.BACKEND
+        del conf.FEED_BACKEND
 
         with pytest.raises(RuntimeError) as e:
             create_app(conf)
 
-        assert 'BACKEND variable not configured' in str(e.value)
+        assert 'FEED_BACKEND variable not configured' in str(e.value)
 
     @pytest.mark.vcr
     def test_backend_error(self):

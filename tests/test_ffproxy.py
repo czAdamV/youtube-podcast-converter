@@ -12,7 +12,7 @@ class SampleConf:
         ]
         self.DEFAULT_COMBINATION = ['mp3', 3]
         self.FORMAT_ENCODER_TRANSLATE = {'aac': 'adts'}
-        self.PROXY_PASS = 'http://example.com/download/{video_id}'
+        self.RAW_BACKEND = 'http://example.com/download/{video_id}'
 
 
 @pytest.fixture
