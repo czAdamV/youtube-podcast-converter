@@ -27,7 +27,7 @@ class TestInitialization:
         with pytest.raises(RuntimeError) as e:
             create_app()
 
-        assert 'FFPROXY_CONFIG' in str(e.value)
+        assert 'YTFEED_CONFIG' in str(e.value)
 
     def test_create_app(self):
         app = create_app(SampleConf())

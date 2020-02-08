@@ -28,7 +28,7 @@ def create_app(conf=None):
     if conf:
         app.config.from_object(conf)
     else:
-        app.config.from_envvar('FFPROXY_CONFIG')
+        app.config.from_envvar('YTFEED_CONFIG')
 
     # Turn ALLOWED_COMBINATIONS into a set of tuples and merge a cartesian
     # product of ALLOWED_FORMATS and ALLOWED_BITRATES into it.
