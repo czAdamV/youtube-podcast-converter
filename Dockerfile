@@ -5,7 +5,7 @@ FROM debian
 
 RUN apt-get update && \
     apt-get -y install \
-        python3.7 \
+        python3 \
         python3-venv \
         python3-pip \
         uwsgi \
@@ -24,9 +24,9 @@ COPY ffproxy /app/ffproxy
 
 WORKDIR /app
 
-RUN python3.7 -m venv .env
+RUN python3 -m venv .env
 
-RUN python3.7 -m venv .env && \
+RUN python3 -m venv .env && \
         . .env/bin/activate && \
         pip install wheel && \
         pip install .
